@@ -1,12 +1,16 @@
-import { Component } from '@angular/core';
-import { AngularEditorConfig } from '@kolkov/angular-editor';
+import {Component, OnInit} from '@angular/core';
+import {AngularEditorConfig, UploadResponse} from '@kolkov/angular-editor';
+import {HttpClient, HttpEvent, HttpEventType} from '@angular/common/http';
+import {map} from 'rxjs/operators';
+import {Observable, of} from 'rxjs';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'angular-rich-text-editor';
   editorConfig: AngularEditorConfig = {
     editable: true,
@@ -44,8 +48,8 @@ export class AppComponent {
         tag: 'h1',
       },
     ],
-    uploadUrl: 'localhost:3000/upload',
-    // upload: (file: File),
+    uploadUrl: 'http://localhost:3000/api/images',
+    // upload: (file: File) => this.uploadImage(file),
     uploadWithCredentials: false,
     sanitize: true,
     toolbarPosition: 'top',
@@ -54,4 +58,11 @@ export class AppComponent {
       ['fontSize']
     ]
   };
+
+  constructor(private http: HttpClient) {}
+
+  ngOnInit(): void {
+
+
+  }
 }
